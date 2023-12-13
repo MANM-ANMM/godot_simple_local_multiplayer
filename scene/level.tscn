@@ -1,0 +1,69 @@
+[gd_scene load_steps=6 format=3 uid="uid://qlmrvg2a725i"]
+
+[ext_resource type="PackedScene" uid="uid://bty1ka6s02id3" path="res://scene/player.tscn" id="1_ayi21"]
+[ext_resource type="Script" path="res://script/players_connector.gd" id="1_tyoob"]
+[ext_resource type="Script" path="res://script/CameraMultiplayer.gd" id="3_sah8g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rfy87"]
+size = Vector2(1000, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4td8c"]
+size = Vector2(5, 5)
+
+[node name="level" type="Node2D"]
+
+[node name="players_connector" type="Node2D" parent="."]
+script = ExtResource("1_tyoob")
+player_scene = ExtResource("1_ayi21")
+
+[node name="pos1" type="Marker2D" parent="players_connector"]
+position = Vector2(350, 301)
+
+[node name="pos2" type="Marker2D" parent="players_connector"]
+position = Vector2(650, 300)
+
+[node name="pos3" type="Marker2D" parent="players_connector"]
+position = Vector2(481, 330)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(564, 540)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_rfy87")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(0, 438)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+shape = SubResource("RectangleShape2D_4td8c")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+position = Vector2(1152, 438)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+shape = SubResource("RectangleShape2D_4td8c")
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="."]
+position = Vector2(576, 438)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D5"]
+shape = SubResource("RectangleShape2D_4td8c")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(564, 540)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(794, -67)
+shape = SubResource("RectangleShape2D_rfy87")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(-899, -65)
+shape = SubResource("RectangleShape2D_rfy87")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(564, 317)
+zoom = Vector2(2, 2)
+script = ExtResource("3_sah8g")
+speed = 6.67
+
+[connection signal="new_player_connected" from="players_connector" to="Camera2D" method="_on_players_connector_new_player_connected"]
